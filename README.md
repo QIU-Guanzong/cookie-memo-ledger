@@ -2,7 +2,11 @@
 
 A small, static-first Cookie Chain memo ledger. It starts with read-only RPC health and confirmed-slot checks, then makes every wallet and transaction transition visible.
 
-Cookie Memo Ledger lets a wallet holder prepare a compact public Memo v1 record after reading the chain state. It is not a deployed cApp, a bridge, a token transfer tool, or a claim that a transaction has happened.
+Cookie Memo Ledger lets a wallet holder prepare a compact public Memo v1 record after reading the chain state. It is not a bridge, a token transfer tool, or a claim that a transaction has happened.
+
+## Live app
+
+[Open Cookie Memo Ledger](https://qiu-guanzong.github.io/cookie-memo-ledger/). The public page has been checked without a wallet: it performs read-only RPC health and confirmed-slot calls, keeps the wallet disconnected, and disables transaction controls until an account holder acts.
 
 ## What it does
 
@@ -20,7 +24,7 @@ Cookie Memo Ledger lets a wallet holder prepare a compact public Memo v1 record 
 - No transaction is built, signed, sent, or confirmed during install, build, tests, or initial page rendering.
 - The project does not create an account, accept terms, collect personal data, bridge assets, deploy a program, or use any funds.
 - The signing path can charge a Cookie Chain network fee **only if the wallet holder approves the future wallet prompt and the transaction is sent**. The on-chain content is the exact user-entered Memo v1 note, which becomes public only after that approval.
-- This local repository has no deployment target or live URL. A successful local build is not a submitted cApp or a completed bounty entry.
+- The public static page is not a submitted cApp or a completed bounty entry. It does not establish a wallet connection, transaction, review, award, or income.
 
 ## Official Cookie Chain inputs
 

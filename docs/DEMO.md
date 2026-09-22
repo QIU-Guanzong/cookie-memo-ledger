@@ -1,6 +1,6 @@
 # Honest local demo script
 
-This script demonstrates Cookie Memo Ledger without making a wallet connection, requesting a signature, or sending a transaction.
+This script demonstrates the public Cookie Memo Ledger page without making a wallet connection, requesting a signature, or sending a transaction.
 
 ## Setup
 
@@ -10,7 +10,7 @@ This script demonstrates Cookie Memo Ledger without making a wallet connection, 
 
 ## Suggested narration
 
-1. “This is Cookie Memo Ledger, a local read-first Cookie Chain cApp. It is not deployed and it has not submitted or sent anything.”
+1. “This is Cookie Memo Ledger, a public read-first Cookie Chain cApp. It has not connected a wallet, submitted, or sent anything in this recording.”
 2. “The first card reads `getHealth` and a confirmed slot from the community RPC separately. If one call fails, the UI marks the result as partial instead of reporting healthy.”
 3. “The wallet card begins in `Wallet-disconnected`. The app detects Nightly without calling it. Only the Connect Nightly button could open a wallet-controlled connection request.”
 4. “The transaction gate makes the state sequence visible: wallet-disconnected, transaction-ready, pending-signature, confirmed, or failed.”
