@@ -23,5 +23,11 @@
   },
   "devDependencies": {
     "vite": "7.1.7"
+  },
+  "pnpm": {
+    "overrides": {
+      "jayson>uuid": "11.1.1",
+      "jayson>stream-json": "3.5.0"
+    }
   }
 }
