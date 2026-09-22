@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="%BASE_URL%cookie-chain-mark.svg" type="image/svg+xml" />
+    <meta
+      name="description"
+      content="A read-first Cookie Chain memo ledger with explicit Nightly wallet and transaction states."
+    />
+    <title>Cookie Memo Ledger · Cookie Chain</title>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="site-header" aria-labelledby="page-title">
+        <a class="brand" href="#overview" aria-label="Cookie Memo Ledger home">
+          <span aria-hidden="true" class="brand-mark">M</span>
+          <span>Cookie Memo Ledger</span>
+        </a>
+        <a class="text-link" href="https://docs.cookiechain.wtf/developer-guide" target="_blank" rel="noreferrer">
+          Official developer guide
+        </a>
+      </header>
+
+      <section id="overview" class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">COOKIE CHAIN MEMO LEDGER</p>
+        <h1 id="page-title">Review the chain, then record one note you approve.</h1>
+        <p class="lede">
+          Cookie Memo Ledger starts with a read-only Cookie Chain RPC check. A Nightly wallet request
+          and a public Memo v1 record happen only after you choose each step.
+        </p>
+      </section>
+
+      <section class="status-grid" aria-label="Cookie Chain state">
+        <article class="panel chain-panel" aria-labelledby="chain-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">COOKIE CHAIN RPC</p>
+              <h2 id="chain-title">Network read</h2>
+            </div>
+            <span id="chain-badge" class="badge badge-muted" role="status">Checking</span>
+          </div>
+          <dl class="readout-list">
+            <div>
+              <dt>Endpoint</dt>
+              <dd><code>https://rpc.cookiescan.io</code></dd>
+            </div>
+            <div>
+              <dt>Health</dt>
+              <dd id="health-value" aria-live="polite">Checking RPC health…</dd>
+            </div>
+            <div>
+              <dt>Confirmed slot</dt>
+              <dd id="slot-value" aria-live="polite">Checking current slot…</dd>
+            </div>
+            <div>
+              <dt>Last read</dt>
+              <dd id="read-at-value">—</dd>
+            </div>
+          </dl>
+          <div class="panel-actions">
+            <button id="refresh-chain" class="button button-secondary" type="button">Refresh network read</button>
+            <a class="text-link" href="https://cookiescan.io" target="_blank" rel="noreferrer">Open Cookiescan</a>
+          </div>
+          <p id="chain-error" class="message message-error" hidden></p>
+        </article>
+
+        <article class="panel wallet-panel" aria-labelledby="wallet-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">NIGHTLY WALLET</p>
+              <h2 id="wallet-title">Wallet-disconnected</h2>
+            </div>
+            <span id="wallet-badge" class="badge badge-muted" role="status">Disconnected</span>
+          </div>
+          <p id="wallet-copy" class="panel-copy">
+            Nightly is the only wallet this ledger will request. Detection does not connect it.
+          </p>
+          <div id="wallet-address-wrap" class="address-wrap" hidden>
+            <span class="address-label">Connected address</span>
+            <code id="wallet-address" class="address" tabindex="0"></code>
+            <button id="copy-address" class="copy-button" type="button">Copy</button>
+          </div>
+          <div class="panel-actions">
+            <button id="connect-wallet" class="button button-primary" type="button">Connect Nightly</button>
+            <button id="disconnect-wallet" class="button button-secondary" type="button" hidden>Disconnect</button>
+          </div>
+          <p id="wallet-error" class="message message-error" hidden></p>
+          <p id="wallet-help" class="message message-muted" hidden>
+            Nightly was not detected. Install it only from
+            <a href="https://nightly.app" target="_blank" rel="noreferrer">nightly.app</a>, then reload this page.
+          </p>
+        </article>
+      </section>
+
+      <section class="panel transaction-panel" aria-labelledby="transaction-title">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">TRANSACTION GATE</p>
+            <h2 id="transaction-title">Transaction states stay explicit</h2>
+          </div>
+          <span id="transaction-badge" class="badge badge-muted" role="status">Wallet-disconnected</span>
+        </div>
+        <ol class="state-track" aria-label="Transaction progress">
+          <li data-phase="wallet-disconnected" class="is-current">Wallet-disconnected</li>
+          <li data-phase="transaction-ready">Transaction-ready</li>
+          <li data-phase="pending-signature">Pending-signature</li>
+          <li data-phase="confirmed">Confirmed</li>
+          <li data-phase="failed">Failed</li>
+        </ol>
+        <p id="transaction-copy" class="panel-copy">
+          Connect Nightly before a signing request can be prepared. No transaction exists yet.
+        </p>
+        <div class="memo-field">
+          <label for="memo-note">Human-approved memo note <span>required</span></label>
+          <textarea
+            id="memo-note"
+            rows="3"
+            maxlength="280"
+            spellcheck="false"
+            placeholder="Example: agent-run: health-check 2026-09-22"
+            aria-describedby="memo-help memo-count"
+          ></textarea>
+          <div class="memo-meta">
+            <p id="memo-help">Use a concise, non-sensitive note. It becomes public only if you approve the Nightly signing request.</p>
+            <span id="memo-count" aria-live="polite">0 / 280</span>
+          </div>
+        </div>
+        <div class="panel-actions">
+          <button id="prepare-transaction" class="button button-secondary" type="button" disabled>
+            Prepare signing request
+          </button>
+          <button id="sign-and-send" class="button button-primary" type="button" disabled>
+            Request signature and send
+          </button>
+        </div>
+        <p id="transaction-details" class="message message-muted">
+          A memo transaction is not prepared, signed, or sent until the wallet holder explicitly takes those steps. A network fee may apply only after a future signing approval and a successful send.
+        </p>
+        <p id="transaction-error" class="message message-error" hidden></p>
+        <a id="transaction-link" class="text-link transaction-link" target="_blank" rel="noreferrer" hidden></a>
+      </section>
+
+      <section class="reference-grid" aria-label="Documentation and safety references">
+        <article>
+          <h2>What is included</h2>
+          <p>Cookie Chain RPC health and confirmed-slot reads, strict Nightly detection, public-address display, and an opt-in signing path.</p>
+        </article>
+        <article>
+          <h2>What is deliberately absent</h2>
+          <p>No private-key input, automatic connection, background signing, account creation, bridge flow, deployment, token transfer, or data collection.</p>
+        </article>
+        <article>
+          <h2>Official references</h2>
+          <p>
+            <a href="https://docs.cookiechain.wtf/wallets" target="_blank" rel="noreferrer">Wallets</a>
+            ·
+            <a href="https://docs.cookiechain.wtf/developer-guide" target="_blank" rel="noreferrer">Developer guide</a>
+            ·
+            <a href="https://docs.cookiechain.wtf/for-builders" target="_blank" rel="noreferrer">For builders</a>
+          </p>
+        </article>
+      </section>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
